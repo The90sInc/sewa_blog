@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h2>Hi {{ user.username }}!</h2>
+        {% for post in object_list %}
+        <div class="post-entry">
+            <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.body }}</p>
+        </div>
+        {% endfor %}
+{% else %}
+    <p>Incorrect user information, Try again</p>
+    <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+<p><a href="{% url 'logout' %}">LOG OUT</a> </p>
+<p><a href="{% url 'password_reset' %}">Reset Password</a></p>
+<p><a href="{% url 'signup' %}">SIGN UP</a></p>
+{% endblock %}
